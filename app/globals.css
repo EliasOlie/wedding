@@ -2,9 +2,9 @@
 
 /* Definindo a paleta semântica */
 :root {
-  /* BASE - CHAMPAGNE SOFISTICADO */
-  --background: #F9F6F2; /* Creme papel de carta */
-  --foreground: #5E505B; /* Cinza arroxeado quente (Legibilidade suave) */
+  /* BASE - PAPEL DE CARTA */
+  --background: #F9F6F2; 
+  --foreground: #5E505B; /* Cinza arroxeado quente */
 
   /* CARTÕES E ELEMENTOS */
   --card: #FFFFFF;
@@ -13,33 +13,37 @@
   --popover: #FFFFFF;
   --popover-foreground: #5E505B;
 
-  /* ACENTOS - LAVANDA & OURO VELHO */
-  --primary: #BFA8D6;    /* Lavanda empoeirada (Accent principal) */
-  --primary-foreground: #FFFFFF;
+  /* ACENTOS - CHAMPANHE & OURO VELHO */
+  --primary: #D4C2A5;    /* Champanhe dourado sofisticado (Accent principal) */
+  --primary-foreground: #42363F; /* Tom profundo para garantir contraste e leitura elegante */
   
-  --secondary: #EBE5DF;  /* Bege areia para fundos secundários */
+  --secondary: #EBE5DF;  
   --secondary-foreground: #4A4238;
 
   --muted: #EBE5DF;
   --muted-foreground: #9CA3AF;
 
-  --accent: #F2EBF9;     /* Lavanda claríssimo para hovers */
+  --accent: #F5EFEB;     /* Champanhe claríssimo (quase perolado) para hovers */
   --accent-foreground: #5E505B;
 
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
 
-  --border: #E6DCD3;     /* Bordas sutis */
+  --border: #E6DCD3;     
   --input: #E6DCD3;
-  --ring: #BFA8D6;
+  --ring: #D4C2A5;       /* Foco acompanhando a cor primária */
   
   --radius: 0.5rem;
 }
 
 /* Configuração do Tema Inline do Tailwind v4 */
 @theme inline {
-  --font-serif: "Playfair Display", serif;
-  --font-sans: "Lato", sans-serif;
+  /* * As fontes agora apontam para as variáveis injetadas pelo Next.js no layout.tsx.
+   * Isso garante o carregamento otimizado (sem piscar a fonte errada). 
+   */
+  --font-serif: var(--font-serif, "Playfair Display", serif);
+  --font-sans: var(--font-sans, "Montserrat", sans-serif);
+  --font-script: var(--font-script, "Pinyon Script", cursive);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -70,22 +74,22 @@
   /* Títulos sempre serifados e elegantes */
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-serif);
-    font-weight: 400; /* Serif fica mais chique com peso menor */
+    font-weight: 400; /* Mantido: Serifas com peso menor são mais refinadas */
   }
 }
 
 @layer utilities {
   /* Utilitário para o efeito de vidro fosco champanhe */
   .glass-champagne {
-    background: rgba(249, 246, 242, 0.6);
+    background: rgba(249, 246, 242, 0.7); 
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(212, 194, 165, 0.2); 
   }
   
-  /* Utilitário para texto dourado/lavanda gradiente */
+  /* Utilitário para texto gradiente atualizado */
   .text-gradient-luxury {
-    background: linear-gradient(to right, #5E505B, #BFA8D6);
+    background: linear-gradient(to right, #5E505B, #C2A878);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }

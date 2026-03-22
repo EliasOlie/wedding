@@ -12,6 +12,7 @@ import {
 } from "framer-motion";
 import { Gift, Calendar, MapPin, ArrowDown } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 // --- CONFIGURAÇÃO DE ANIMAÇÕES (STAGGER) ---
 const fadeInUp: Variants = {
@@ -75,6 +76,8 @@ const Countdown = () => {
     min: number;
     seg: number;
   } | null>(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -142,26 +145,16 @@ export default function WeddingPage() {
             {/* Imagem de Fundo Tratada */}
             <motion.div style={{ y: yHero }} className="absolute inset-0 z-0">
               <Image
-                src="/noivos.jpeg"
+                src="/bg_0.jpeg"
                 alt="Elias e Janine"
                 fill
                 priority
-                quality={100} // 1. Força qualidade máxima (sem compressão)
-                sizes="100vw" // 2. Garante que o navegador baixe a versão de alta resolução
-                className="object-cover object-[center_25%]" // 3. Ajuste fino de posição
-                // Explicação do object-[center_35%]:
-                // O primeiro valor (center) alinha horizontalmente.
-                // O segundo valor (35%) define o ponto focal vertical.
-                // - 0% = Topo total (mostra o teto)
-                // - 50% = Centro (o que estava antes)
-                // - 100% = Pé da foto
-                // Se ainda cortar a cabeça, diminua para 20% ou 25%.
+                quality={100}
+                sizes="100vw"
+                className="object-cover object-center"
               />
-              {/* O Segredo do Filtro Champanhe */}
               <div className="absolute inset-0 bg-[#4B3C46]/20 mix-blend-multiply" />
               <div className="absolute inset-0 bg-[#F9F6F2]/30 mix-blend-color" />
-              {/* <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-black/20" /> */}
-              {/* <div className="absolute inset-0 backdrop-blur-[1px]" /> */}
             </motion.div>
 
             {/* Texto Hero */}
@@ -220,7 +213,9 @@ export default function WeddingPage() {
               className="max-w-5xl mx-auto bg-background/80 backdrop-blur-xl border border-white/50 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-3xl p-8 md:p-12 text-center"
             >
               <p className="font-serif italic text-2xl text-foreground/80 mb-8">
-                Falta pouco para o nosso "Para Sempre"
+                Falta pouco para oficializarmos nosso{" "}
+                <span className="font-semibold">para sempre</span> em uma
+                aliança!
               </p>
               <Countdown />
             </motion.div>
@@ -241,10 +236,10 @@ export default function WeddingPage() {
                   <div className="absolute -inset-4 border border-primary/20 rounded-t-full rounded-b-[10rem] translate-x-4 translate-y-4 transition-transform group-hover:translate-x-2 group-hover:translate-y-2 duration-700" />
                   <div className="relative h-[600px] w-full rounded-t-full rounded-b-[10rem] overflow-hidden shadow-2xl">
                     <Image
-                      src="/9.jpeg" // Foto de branco
+                      src="/nos.webp"
                       alt="Momentos"
                       fill
-                      className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                      className="object-cover object-top transition-transform duration-1000 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-primary/10 mix-blend-overlay" />
                   </div>
@@ -349,7 +344,7 @@ export default function WeddingPage() {
                   ].map((item, index) => (
                     <motion.a
                       key={index}
-                      href="#"
+                      href="/presentes"
                       variants={fadeInUp}
                       whileHover={{ y: -8 }}
                       className="group relative bg-background p-10 rounded-2xl shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] transition-all duration-500 border border-transparent hover:border-primary/40"

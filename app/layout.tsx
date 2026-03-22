@@ -1,19 +1,30 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Lato } from "next/font/google";
+// Adicionamos Pinyon_Script
+import { Playfair_Display, Montserrat, Pinyon_Script } from "next/font/google";
 import "./globals.css";
 
+// A fonte do espetáculo (para os nomes e o texto desfocado)
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-serif",
   display: "swap",
-  weight: ["400", "500", "700", "900"], // Pesos variados para hierarquia
+  weight: ["400", "500", "600"],
 });
 
-const lato = Lato({
+// A fonte de suporte (para os rótulos e as pílulas de informação)
+const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
-  weight: ["100", "300", "400", "700"], // Lato light é muito elegante
+  weight: ["300", "400", "500"],
+});
+
+// A nova fonte ornamental (exclusivamente para o e-comercial)
+const pinyon = Pinyon_Script({
+  subsets: ["latin"],
+  variable: "--font-script", // Nova variável
+  display: "swap",
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {
@@ -27,8 +38,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${playfair.variable} ${lato.variable}`}>
-      <body>{children}</body>
+    // Injetamos as três variáveis no HTML
+    <html
+      lang="pt-BR"
+      className={`${playfair.variable} ${montserrat.variable} ${pinyon.variable}`}
+    >
+      <body className="antialiased font-sans">{children}</body>
     </html>
   );
 }
