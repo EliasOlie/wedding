@@ -14,63 +14,62 @@ export const gifts: Gift[] = [
     name: "Jogo de pratos",
     price: 105,
     image:
-      "https://images.unsplash.com/photo-1603504381577-fb76ce7606e1?auto=format&fit=crop&w=600&q=80",
+      "https://static.lclhome.com.br/public/lcl/imagens/produtos/jogo-de-6-pratos-fundos-stoneware-mahogany-porto-brasil-17330.jpeg",
   },
   {
     id: 2,
     name: "Frigideira antiaderente",
     price: 120,
     image:
-      "https://images.unsplash.com/photo-1585515320310-259814833e62?auto=format&fit=crop&w=600&q=80",
+      "https://images.tcdn.com.br/img/img_prod/1143540/frigideira_tramontina_turim_aluminio_antiaderente_starflon_vermelho_com_tampa_de_vidro_1_7l_621_1_286ae573862802479c8d8f76fcf2d9df.jpg",
   },
   {
     id: 3,
     name: "Jogo de facas de cozinha",
     price: 130,
     image:
-      "https://images.unsplash.com/photo-1593618998160-e34014e67546?auto=format&fit=crop&w=600&q=80",
+      "https://s3.amazonaws.com/assets.tramontina.com.br/upload/tramon/imagens/CUT/23899060PDM001G.jpg",
   },
   {
     id: 4,
     name: "Assadeira de vidro grande",
     price: 140,
     image:
-      "https://images.unsplash.com/photo-1583687841584-8149eeb7fcbe?auto=format&fit=crop&w=600&q=80",
+      "https://images.tcdn.com.br/img/img_prod/1270913/assadeira_de_vidro_marinex_retangular_grande_seletta_c_tampa_3_5l_653_5011_1_3c7f14d485325177c315ae931cde462b.jpg",
   },
   {
     id: 5,
     name: "Kit travessas de vidro",
     price: 150,
     image:
-      "https://images.unsplash.com/photo-1620076824349-2d1748cb1519?auto=format&fit=crop&w=600&q=80",
+      "https://t62533.vteximg.com.br/arquivos/ids/943256-1000-1000/TRAVESSA.jpg?v=638289127302500000",
   },
   {
     id: 6,
     name: "Jogo de toalhas de banho",
     price: 160,
     image:
-      "https://images.unsplash.com/photo-1616627547584-bf28cee262db?auto=format&fit=crop&w=600&q=80",
+      "https://m.media-amazon.com/images/I/81uT0PNhj8L._AC_UF894,1000_QL80_.jpg",
   },
   {
     id: 7,
     name: "Jogo de copos de vidro",
     price: 120,
-    image:
-      "https://images.unsplash.com/photo-1594246039578-83b632948ca2?auto=format&fit=crop&w=600&q=80",
+    image: "https://m.media-amazon.com/images/I/715hvgVy7jL.jpg",
   },
   {
     id: 8,
     name: "Conjunto de potes herméticos",
     price: 130,
     image:
-      "https://images.unsplash.com/photo-1588663806740-02a80f0896ab?auto=format&fit=crop&w=600&q=80",
+      "https://m.media-amazon.com/images/I/81BoVR79zoL._AC_UF894,1000_QL80_.jpg",
   },
   {
     id: 9,
     name: "Lixeira inox",
     price: 105,
     image:
-      "https://images.unsplash.com/photo-1585834887309-8d76d6545b7f?auto=format&fit=crop&w=600&q=80",
+      "https://images.tcdn.com.br/img/img_prod/780820/lixeira_inox_com_tampa_e_pedal_10_litros_ac_048_flexinox_5740678_1_20200529195933.jpg",
   },
 
   // --- FAIXA 2 (R$ 150 - R$ 280) ---
@@ -79,56 +78,56 @@ export const gifts: Gift[] = [
     name: "Liquidificador",
     price: 180,
     image:
-      "https://images.unsplash.com/photo-1585659722983-38ca8e17b3d3?auto=format&fit=crop&w=600&q=80",
+      "https://mirandacomputacao.jetassets.com.br/produto/44128-principal.png",
   },
   {
     id: 11,
     name: "Sanduicheira elétrica",
     price: 150,
     image:
-      "https://images.unsplash.com/photo-1626200419188-f15e56e098bd?auto=format&fit=crop&w=600&q=80",
+      "https://down-br.img.susercontent.com/file/br-11134207-7r98o-mbjgkj1umxrsc7",
   },
   {
     id: 12,
     name: "Cafeteira elétrica",
     price: 200,
     image:
-      "https://images.unsplash.com/photo-1520970014086-2208d157c9e2?auto=format&fit=crop&w=600&q=80",
+      "https://images.kabum.com.br/produtos/fotos/sync_mirakl/472967/xlarge/Cafeteira-El-trica-Mondial-Dolce-Arome-30-X-caras-Corta-Pingos-800W-220V-Preto-Inox-C-37-Ji-30x_1757625297.jpg",
   },
   {
     id: 13,
     name: "Conjunto de talheres inox",
     price: 220,
     image:
-      "https://images.unsplash.com/photo-1608833959827-023a9d7010a3?auto=format&fit=crop&w=600&q=80",
+      "https://m.media-amazon.com/images/I/71yNS91ylGL._AC_UF894,1000_QL80_.jpg",
   },
   {
     id: 14,
     name: "Jogo de lençol casal",
     price: 279,
     image:
-      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=600&q=80",
+      "https://d1l2khdhnk6ii8.cloudfront.net/Custom/Content/Products/99/67/996756_jogo-de-cama-alexandre-herchcovitch-queen-percal-180-fios-100-algodao-loft_m6_638902692665489580.webp",
   },
   {
     id: 15,
     name: "Edredom casal",
     price: 250,
     image:
-      "https://images.unsplash.com/photo-1617325247661-675ab03407bd?auto=format&fit=crop&w=600&q=80",
+      "https://m.media-amazon.com/images/I/81g-KYbDBKL._AC_UF894,1000_QL80_.jpg",
   },
   {
     id: 16,
     name: "Tapete grande para sala",
     price: 220,
     image:
-      "https://images.unsplash.com/photo-1528458909336-e6a00f2265f2?auto=format&fit=crop&w=600&q=80",
+      "https://casaamarella.com.br/cdn/shop/files/Sce4e231cf6a1488ca36e6dd58d84ae8aN.jpg?v=1695649018&width=2048",
   },
   {
     id: 17,
     name: "Tábua de passar roupa",
     price: 150,
     image:
-      "https://images.unsplash.com/photo-1580256081112-e49377338b7f?auto=format&fit=crop&w=600&q=80",
+      "https://www.lojademoveisonline.com.br/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/t/a/tabua-passar-roupa-havai-rv-branco.jpg",
   },
 
   // --- FAIXA 3 (R$ 250 - R$ 550) ---
@@ -137,63 +136,63 @@ export const gifts: Gift[] = [
     name: "Batedeira",
     price: 300,
     image:
-      "https://images.unsplash.com/photo-1593010530737-1d8213890fb4?auto=format&fit=crop&w=600&q=80",
+      "https://itatiaia.vtexassets.com/arquivos/ids/163800/200-Cm--18-.png?v=639041065518300000",
   },
   {
     id: 19,
     name: "Panela de pressão",
     price: 250,
     image:
-      "https://images.unsplash.com/photo-1584990347449-a03521b4430e?auto=format&fit=crop&w=600&q=80",
+      "https://m.media-amazon.com/images/I/81P4NbJcaVS._AC_UF894,1000_QL80_.jpg",
   },
   {
     id: 20,
     name: "Jogo de panelas",
     price: 350,
     image:
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=600&q=80",
+      "https://gazin-images.gazin.com.br/n0EtdPGSswvCfNhqHu60yCmPQdk=/1920x/filters:format(webp):quality(75)/https://gazin-marketplace.s3.amazonaws.com/midias/imagens/2022/06/jogo-de-panelas-tramontina-antiaderente-5-pecas-sicilia-102206482441.jpg",
   },
   {
     id: 21,
     name: "Air fryer",
     price: 300,
     image:
-      "https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=600&q=80",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAt4yqb1CFVSrCPeHYhEaET_qKZAO5Z1wU7g&s",
   },
   {
     id: 22,
     name: "Aspirador de pó",
     price: 280,
     image:
-      "https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=600&q=80",
+      "https://valflex.vteximg.com.br/arquivos/ids/740830-1000-1000/67241_1.jpg?v=638506230632700000",
   },
   {
     id: 23,
     name: "Jogo de panelas antiaderente premium",
     price: 420,
     image:
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80",
+      "https://m.media-amazon.com/images/I/61gHu7UKd+L._AC_UF894,1000_QL80_.jpg",
   },
   {
     id: 24,
     name: "Mixer ou processador",
     price: 320,
     image:
-      "https://images.unsplash.com/photo-1589334547285-b15de033f20f?auto=format&fit=crop&w=600&q=80",
+      "https://m.magazineluiza.com.br/a-static/420x420/kit-mixer-processador-e-batedor-3-em-1-127v-220v-com-copo-700ml-e-acessorios-compacto-pratico-e-versatil-para-cozinha-sortido-preto-ou-branco-startools/bragamagazines/ar0890/ab433b0e976293480091a6672105cf29.jpeg",
   },
   {
     id: 25,
     name: "Micro-ondas",
     price: 550,
     image:
-      "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&w=600&q=80",
+      "https://topmoveis.vtexassets.com/arquivos/ids/169432/FORNO-MICRO-ONDAS-34L-900W-NN-ST66NBRUK-PRETO-PANASONIC.jpg?v=638504299455100000",
   },
   {
     id: 26,
     name: "Forno elétrico",
     price: 500,
     image:
-      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=600&q=80",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0Pwp2XHVyT-f194UTdskGMeh9qkEuLP0how&s",
   },
 
   // --- ELETRODOMÉSTICOS GRANDES ---
@@ -202,21 +201,20 @@ export const gifts: Gift[] = [
     name: 'Smart TV 32"',
     price: 1300,
     image:
-      "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=600&q=80",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuqL9YlALfpNXVlBZXlvPNxkfjocE-DJFmsQ&s",
   },
   {
     id: 28,
     name: "Máquina de lavar roupa",
     price: 1800,
     image:
-      "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=600&q=80",
+      "https://m.media-amazon.com/images/I/41pS08Q7EoL._AC_UF894,1000_QL80_.jpg",
   },
   {
     id: 29,
     name: "Geladeira",
     price: 2500,
-    image:
-      "https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?auto=format&fit=crop&w=600&q=80",
+    image: "https://m.media-amazon.com/images/I/31xMzsFPtXL.jpg",
   },
 
   // --- BANHEIRO ---
@@ -225,35 +223,35 @@ export const gifts: Gift[] = [
     name: "Jogo de toalhas de banho (4 peças)",
     price: 105,
     image:
-      "https://images.unsplash.com/photo-1585058097003-888e23431afb?auto=format&fit=crop&w=600&q=80",
+      "https://cdn.awsli.com.br/2500x2500/941/941355/produto/366589826/jogo-de-toalhas-floren-a-4-pe-as-azul-e-verde-fmaopa0kcb.jpg",
   },
   {
     id: 31,
     name: "Tapete grande para banheiro",
     price: 110,
     image:
-      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80",
+      "https://jetex.cdn.magazord.com.br/img/2024/04/produto/5417/capacho-tapete-banheiro-bege-hawaii-02-edantex-jetex.jpg?ims=600x600",
   },
   {
     id: 32,
     name: "Kit banheiro (saboneteira + porta escova)",
     price: 120,
     image:
-      "https://images.unsplash.com/photo-1610555356070-d1fb3d81b9e0?auto=format&fit=crop&w=600&q=80",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSktntBSLequXAEzk4M_OmNQzf8oCPJqSI9-Q&s",
   },
   {
     id: 33,
     name: "Porta toalhas de parede",
     price: 110,
     image:
-      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=600&q=80",
+      "https://images.tcdn.com.br/img/img_prod/1172145/toalheiro_hotel_de_parede_porta_toalha_duplo_preto_master_101915_2_b6d6787bf469381aed12e2b5ad4bf069.jpg",
   },
   {
     id: 34,
     name: "Kit organizador de banheiro",
     price: 140,
     image:
-      "https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=600&q=80",
+      "https://m.media-amazon.com/images/I/81NN7Vi6SoL._AC_UF894,1000_QL80_.jpg",
   },
 
   // --- CAMA E DECORAÇÃO ---
@@ -262,69 +260,69 @@ export const gifts: Gift[] = [
     name: "Jogo de lençol casal premium",
     price: 300,
     image:
-      "https://images.unsplash.com/photo-1536603831776-e8d19d6dff77?auto=format&fit=crop&w=600&q=80",
+      "https://http2.mlstatic.com/D_NQ_NP_792172-MLB107699342478_032026-O.webp",
   },
   {
     id: 36,
     name: "Protetor de colchão impermeável",
     price: 130,
     image:
-      "https://images.unsplash.com/photo-1541123437800-141315147817?auto=format&fit=crop&w=600&q=80",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVq0Z_kMCv7qJAbgDMaPGhxfd1vi5ZJwr2QQ&s",
   },
   {
     id: 37,
     name: "Travesseiro viscoelástico",
     price: 150,
     image:
-      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=600&q=80",
+      "https://m.media-amazon.com/images/I/61T9MO3ik6L._AC_UF894,1000_QL80_.jpg",
   },
   {
     id: 38,
     name: "Colcha casal",
     price: 220,
     image:
-      "https://images.unsplash.com/photo-1616047006789-b7af5afb8c20?auto=format&fit=crop&w=600&q=80",
+      "https://d936f1vbzcg3q.cloudfront.net/Custom/Content/Products/10/09/1009999_colcha-zelo-classic-piquet-favo-fio-tinto-casal-100-algodao_m15_638723740995186641.webp",
   },
   {
     id: 39,
     name: "Cobre leito casal",
     price: 260,
     image:
-      "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=600&q=80",
+      "https://images.tcdn.com.br/img/img_prod/1307444/cobre_leito_athenas_dupla_face_casal_padrao_9_1_9d2ffb6ed877777f1f8052c9377174dd.jpg",
   },
   {
     id: 40,
     name: "Fronhas premium (par)",
     price: 110,
     image:
-      "https://images.unsplash.com/photo-1621508670150-13f683f124c6?auto=format&fit=crop&w=600&q=80",
+      "https://m.media-amazon.com/images/I/51NjaOyvVlL._AC_UF894,1000_QL80_.jpg",
   },
   {
     id: 41,
     name: "Kit cama completo (lençol + fronhas)",
     price: 300,
     image:
-      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=600&q=80",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTk2R7erhRoqGqx16TVl35hbeEfHusuqFaOyA&s",
   },
   {
     id: 42,
     name: "Roupão de banho casal",
     price: 250,
     image:
-      "https://images.unsplash.com/photo-1629198688000-71f23e745b6e?auto=format&fit=crop&w=600&q=80",
+      "https://down-br.img.susercontent.com/file/br-11134207-7r98o-ly8loqdupkt18e",
   },
   {
     id: 43,
     name: "Toalhas de lavabo (kit)",
     price: 120,
     image:
-      "https://images.unsplash.com/photo-1618331835717-801e976710b2?auto=format&fit=crop&w=600&q=80",
+      "https://emporiodolencol.vtexassets.com/arquivos/ids/176154/kit-toalha-lavabo-roma-buettner-bege.jpg?v=638574395407000000",
   },
   {
     id: 44,
     name: "Tapete grande para quarto",
     price: 220,
     image:
-      "https://images.unsplash.com/photo-1580237072617-771c3ecc4a24?auto=format&fit=crop&w=600&q=80",
+      "https://a-static.mlcdn.com.br/%7Bw%7Dx%7Bh%7D/tapete-grande-quarto-2-metros-pelo-alto-antiderrapante-2x15-essencia-confeccoes/evaenxovais/0001234567890123456789012345/af4dacee27f79a601eb15feb3538a455.jpeg",
   },
 ];
