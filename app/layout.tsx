@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 // Adicionamos Pinyon_Script
-import { Playfair_Display, Montserrat, Pinyon_Script } from "next/font/google";
+import {
+  Playfair_Display,
+  Montserrat,
+  Libre_Baskerville,
+} from "next/font/google";
 import "./globals.css";
 
 // A fonte do espetáculo (para os nomes e o texto desfocado)
@@ -20,7 +24,7 @@ const montserrat = Montserrat({
 });
 
 // A nova fonte ornamental (exclusivamente para o e-comercial)
-const pinyon = Pinyon_Script({
+const pinyon = Libre_Baskerville({
   subsets: ["latin"],
   variable: "--font-script", // Nova variável
   display: "swap",

@@ -12,7 +12,6 @@ import {
 } from "framer-motion";
 import { Gift, Calendar, MapPin, ArrowDown } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 // --- CONFIGURAÇÃO DE ANIMAÇÕES (STAGGER) ---
 const fadeInUp: Variants = {
@@ -48,14 +47,24 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { duration: 1, ease: "easeInOut" } }}
     >
-      <div className="relative overflow-hidden p-10">
+      <div className="relative overflow-hidden p-10 flex items-center justify-center">
         <motion.h1
           initial={{ y: "100%" }}
           animate={{ y: 0 }}
           transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
-          className="text-8xl md:text-9xl font-serif text-foreground/80"
+          className="text-8xl md:text-9xl font-serif text-foreground/80 flex items-baseline"
         >
-          E<span className="italic font-light text-primary">&</span>J
+          <span>E</span>
+
+          {/* O "&" EXATO: 
+              - Removido o itálico e o font-light.
+              - Inserida a classe font-baskerville (ou a equivalente que criarmos).
+          */}
+          <span className="font-baskerville text-primary mx-4 md:mx-6 font-normal">
+            &
+          </span>
+
+          <span>J</span>
         </motion.h1>
       </div>
       <motion.div
@@ -76,8 +85,6 @@ const Countdown = () => {
     min: number;
     seg: number;
   } | null>(null);
-
-  const router = useRouter();
 
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -176,7 +183,10 @@ export default function WeddingPage() {
                 variants={fadeInUp}
                 className="text-6xl md:text-9xl text-white font-serif mb-2 drop-shadow-2xl"
               >
-                Elias <span className="text-primary italic font-light">&</span>{" "}
+                Elias{" "}
+                <span className="font-baskerville text-primary italic font-light">
+                  &
+                </span>{" "}
                 Janine
               </motion.h1>
 
@@ -270,24 +280,28 @@ export default function WeddingPage() {
                       <span className="font-medium text-foreground">
                         Consciência Cristã de 2025
                       </span>
-                      . Não foi apenas coincidência; foi propósito. Ali, oramos
-                      juntos e pedimos o direcionamento do Senhor antes de
-                      qualquer passo.
+                      . Não foi coincidência; foi plano divino. Durante esse
+                      período, oramos juntos e pedimos o direcionamento do
+                      Senhor antes de qualquer passo.
                     </p>
+
                     <p>
-                      Em <span className="italic text-primary">Abril</span>,
-                      iniciamos nossa caminhada. Mesmo enfrentando a distância
-                      física, a oração constante, o temor a Deus e o amor nos
-                      mantiveram mais unidos do que nunca.
+                      Em <span className="italic text-primary">abril</span>, com
+                      a graça de Deus, iniciamos nosso relacionamento. Mesmo
+                      enfrentando a distância física, a oração constante, os
+                      jejuns, o temor a Deus e o amor nos mantiveram ainda mais
+                      unidos.
                     </p>
+
                     <p>
                       Até que, no dia{" "}
                       <span className="font-serif italic text-primary">
-                        23/12/25
+                        23/12/2025
                       </span>
-                      , o "Sim" do pedido de casamento selou nosso destino.
-                      Agora, avançamos com alegria para o nosso grande dia:{" "}
-                      <strong className="font-medium">23/05/26</strong>.
+                      , o “sim” ao pedido de casamento selou nosso destino.
+                      Agora, com alegria, esperamos pelo nosso grande dia,{" "}
+                      <strong className="font-medium">23/05/2026</strong>,
+                      quando selaremos publicamente a nossa aliança.
                     </p>
                   </div>
                 </motion.div>

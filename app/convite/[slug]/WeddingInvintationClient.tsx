@@ -20,13 +20,22 @@ import {
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-// --- TIPAGEM DE DADOS PARA O RSVP ---
+// --- IMPORT DA SERVER ACTION ---
+import { submitRSVP } from "@/app/actions/rsvp.action";
+
+// --- TIPAGEM ---
 type AttendanceStatus = "pending" | "confirmed" | "declined";
 
 interface Guest {
-  id: string;
+  _id: string; // Garantindo alinhamento com o MongoDB
   name: string;
   status: AttendanceStatus;
+}
+
+interface InvitationData {
+  slug: string;
+  saudacao: string;
+  convidados: Guest[];
 }
 
 // --- CONFIGURAÇÃO DE ANIMAÇÕES ---
@@ -124,15 +133,9 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
           className="text-8xl md:text-9xl font-serif text-foreground/80 flex items-baseline"
         >
           <span>E</span>
-
-          {/* O "&" EXATO: 
-              - Removido o itálico e o font-light.
-              - Inserida a classe font-baskerville (ou a equivalente que criarmos).
-          */}
           <span className="font-baskerville text-primary mx-4 md:mx-6 font-normal">
             &
           </span>
-
           <span>J</span>
         </motion.h1>
       </div>
@@ -146,41 +149,51 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
   );
 };
 
-// --- PÁGINA ÚNICA DO CONVITE ---
-export default function WeddingInvitationPage() {
+// --- COMPONENTE PRINCIPAL (CLIENT) ---
+export default function WeddingInvitationClient({
+  initialData,
+}: {
+  initialData: InvitationData;
+}) {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
-  // ESTADO DOS CONVIDADOS
-  const [guests, setGuests] = useState<Guest[]>([
-    { id: "1", name: "Roberto Almeida", status: "pending" },
-    { id: "2", name: "Camila Almeida", status: "pending" },
-    { id: "3", name: "João Pedro Almeida", status: "pending" },
-  ]);
+  // ESTADO DOS CONVIDADOS (Inicializado com os dados do MongoDB)
+  const [guests, setGuests] = useState<Guest[]>(initialData.convidados);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+
+  const { scrollY } = useScroll();
+  const yHero = useTransform(scrollY, [0, 1000], [0, 400]);
+  const opacityHero = useTransform(scrollY, [0, 500], [1, 0]);
+
+  const allResponded = guests.every((g) => g.status !== "pending");
 
   const handleStatusChange = (id: string, newStatus: AttendanceStatus) => {
     setGuests((prev) =>
       prev.map((guest) =>
-        guest.id === id ? { ...guest, status: newStatus } : guest,
+        guest._id === id ? { ...guest, status: newStatus } : guest,
       ),
     );
   };
 
-  const handleSubmitRSVP = () => {
+  const handleSubmitRSVP = async () => {
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
-    }, 1500);
-    router.push("/presentes");
-  };
-  const { scrollY } = useScroll();
 
-  const allResponded = guests.every((g) => g.status !== "pending");
-  const yHero = useTransform(scrollY, [0, 1000], [0, 400]);
-  const opacityHero = useTransform(scrollY, [0, 500], [1, 0]);
+    // Chama a Server Action
+    const result = await submitRSVP(initialData.slug, guests);
+
+    setIsSubmitting(false);
+
+    if (result.success) {
+      setIsSuccess(true);
+      setTimeout(() => {
+        router.push("/presentes");
+      }, 2000);
+    } else {
+      alert("Houve um erro ao enviar sua confirmação. Tente novamente.");
+    }
+  };
 
   return (
     <>
@@ -226,7 +239,7 @@ export default function WeddingInvitationPage() {
                 className="text-6xl md:text-9xl text-white font-serif mb-2 drop-shadow-2xl"
               >
                 Elias{" "}
-                <span className="font-baskerville text-primary italic font-light">
+                <span className="font-baskerville text-primary font-normal">
                   &
                 </span>{" "}
                 Janine
@@ -272,20 +285,25 @@ export default function WeddingInvitationPage() {
               <Countdown />
             </motion.div>
           </section>
+          <div className="flex justify-center mb-10">
+            <p className="font-serif  bg-primary/70 px-10 py-5 font-semibold rounded-xl italic text-black text-lg  drop-shadow-md">
+              Para {initialData.saudacao}
+            </p>
+          </div>
 
           {/* 4. A Cópia */}
           <motion.p
             variants={fadeInUp}
-            className="text-center font-serif italic text-2xl md:text-3xl text-foreground max-w-2xl mx-auto mb-16 leading-relaxed"
+            className="text-center font-serif italic text-2xl md:text-3xl text-foreground max-w-2xl mx-auto mb-16 px-4 leading-relaxed"
           >
             Com alegria e temor a Deus, convidamos você para testemunhar e
             celebrar a união das nossas vidas em uma só aliança.
           </motion.p>
 
-          {/* 5. Os Dados Logísticos (Clean e minimalistas) */}
+          {/* 5. Os Dados Logísticos */}
           <motion.div
             variants={fadeInUp}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-8 mb-32 w-full"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-8 mb-32 w-full px-4"
           >
             <div className="flex flex-col items-center gap-2">
               <Calendar
@@ -316,9 +334,8 @@ export default function WeddingInvitationPage() {
           {/* 6. RSVP - O Cartão de Resposta */}
           <motion.div
             variants={fadeInUp}
-            className="w-full max-w-2xl bg-white rounded-3xl p-8 md:p-12 shadow-[0_10px_40px_-20px_rgba(0,0,0,0.08)] border border-border/30 relative overflow-hidden"
+            className="w-full max-w-2xl mx-auto bg-white rounded-3xl p-8 md:p-12 shadow-[0_10px_40px_-20px_rgba(0,0,0,0.08)] border border-border/30 relative overflow-hidden mb-32"
           >
-            {/* Linha decorativa no topo do cartão RSVP */}
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
 
             <div className="text-center mb-10">
@@ -339,7 +356,7 @@ export default function WeddingInvitationPage() {
               <div className="space-y-4">
                 {guests.map((guest) => (
                   <div
-                    key={guest.id}
+                    key={guest._id}
                     className="flex flex-col md:flex-row items-center justify-between p-4 md:p-5 rounded-2xl bg-background/50 border border-border/50 gap-4 transition-colors hover:border-primary/30"
                   >
                     <span className="font-serif text-lg text-foreground">
@@ -349,7 +366,7 @@ export default function WeddingInvitationPage() {
                     <div className="flex gap-2 w-full md:w-auto">
                       <button
                         onClick={() =>
-                          handleStatusChange(guest.id, "confirmed")
+                          handleStatusChange(guest._id, "confirmed")
                         }
                         className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-[11px] font-sans font-bold tracking-widest uppercase transition-all duration-300 border ${
                           guest.status === "confirmed"
@@ -361,7 +378,9 @@ export default function WeddingInvitationPage() {
                       </button>
 
                       <button
-                        onClick={() => handleStatusChange(guest.id, "declined")}
+                        onClick={() =>
+                          handleStatusChange(guest._id, "declined")
+                        }
                         className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-[11px] font-sans font-bold tracking-widest uppercase transition-all duration-300 border ${
                           guest.status === "declined"
                             ? "bg-muted text-foreground/50 border-transparent shadow-inner"
