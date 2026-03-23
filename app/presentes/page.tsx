@@ -21,8 +21,8 @@ import { getReservedGiftIds, reserveGift } from "@/app/actions/gift.action";
 // ============================================================================
 // CONFIGURAÇÕES DO PIX (Mude para os dados de vocês)
 // ============================================================================
-const PIX_KEY = "suachave@email.com"; // Pode ser CPF, Email, Telefone ou Aleatória
-const PIX_NAME = "ELIAS OLIVEIRA"; // Sem acentos, máximo 25 caracteres
+const PIX_KEY = "56674829-8e47-4ab6-88d0-95ca4ae91fc5"; // Pode ser CPF, Email, Telefone ou Aleatória
+const PIX_NAME = "JANINE ESTRELA"; // Sem acentos, máximo 25 caracteres
 const PIX_CITY = "PARELHAS"; // Sem acentos, máximo 15 caracteres
 
 // ============================================================================

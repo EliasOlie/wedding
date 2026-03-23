@@ -325,4 +325,11 @@ export const gifts: Gift[] = [
     image:
       "https://a-static.mlcdn.com.br/%7Bw%7Dx%7Bh%7D/tapete-grande-quarto-2-metros-pelo-alto-antiderrapante-2x15-essencia-confeccoes/evaenxovais/0001234567890123456789012345/af4dacee27f79a601eb15feb3538a455.jpeg",
   },
+  {
+    id: 45,
+    name: "Teste",
+    price: 1,
+    image:
+      "https://media.istockphoto.com/id/972656164/pt/vetorial/wip-sign-icon.jpg?s=612x612&w=0&k=20&c=ua9bBYSy32XeP3QxU_2Yj5b2C1VcJD9RQJ1Z9q3N92Y=",
+  },
 ];
