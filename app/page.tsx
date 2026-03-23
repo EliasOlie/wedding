@@ -343,44 +343,29 @@ export default function WeddingPage() {
                   nossa lua de mel.
                 </motion.p>
 
-                <div className="grid md:grid-cols-2 gap-8">
-                  {[
-                    {
-                      title: "Lua de Mel",
-                      desc: "Contribua para nossa viagem dos sonhos",
-                      label: "Contribuir",
-                    },
-                    {
-                      title: "Casa Nova",
-                      desc: "Ajude a montar nosso cantinho",
-                      label: "Ver Lista",
-                    },
-                  ].map((item, index) => (
-                    <motion.a
-                      key={index}
-                      href="/presentes"
-                      variants={fadeInUp}
-                      whileHover={{ y: -8 }}
-                      className="group relative bg-background p-10 rounded-2xl shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] transition-all duration-500 border border-transparent hover:border-primary/40"
-                    >
-                      {/* Efeito hover de fundo */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-white to-secondary/40 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="flex flex-1">
+                  <motion.a
+                    href="/presentes"
+                    variants={fadeInUp}
+                    whileHover={{ y: -8 }}
+                    className="group relative bg-background p-10 flex flex-1 rounded-2xl shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] transition-all duration-500 border border-transparent hover:border-primary/40"
+                  >
+                    {/* Efeito hover de fundo */}
 
-                      <div className="relative z-10">
-                        <h3 className="text-3xl font-serif mb-3 text-foreground group-hover:text-primary-dark transition-colors">
-                          {item.title}
-                        </h3>
-                        {/* Texto de descrição mais escuro para melhor contraste */}
-                        <p className="text-foreground/70 mb-8 font-medium">
-                          {item.desc}
-                        </p>
-                        {/* Botão com contraste aprimorado */}
-                        <span className="inline-block px-8 py-3 bg-secondary text-foreground font-bold text-xs uppercase tracking-widest rounded-full group-hover:bg-primary group-hover:text-white transition-all duration-300">
-                          {item.label}
-                        </span>
-                      </div>
-                    </motion.a>
-                  ))}
+                    <div className="relative z-10 flex flex-1 flex-col">
+                      <h3 className="text-3xl font-serif mb-3 text-foreground group-hover:text-primary-dark transition-colors">
+                        Presentes!
+                      </h3>
+                      {/* Texto de descrição mais escuro para melhor contraste */}
+                      <p className="text-foreground/70 mb-8 font-medium">
+                        Vamos construir o nosso sonho juntos!
+                      </p>
+                      {/* Botão com contraste aprimorado */}
+                      <span className="inline-block px-8 py-3 bg-secondary text-foreground font-bold text-xs uppercase tracking-widest rounded-full group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                        VER LISTA
+                      </span>
+                    </div>
+                  </motion.a>
                 </div>
               </motion.div>
             </div>

@@ -76,6 +76,14 @@
     font-family: var(--font-serif);
     font-weight: 400; /* Mantido: Serifas com peso menor são mais refinadas */
   }
+
+  .hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 }
 
 @layer utilities {

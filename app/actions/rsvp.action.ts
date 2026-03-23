@@ -56,3 +56,17 @@ export async function submitRSVP(slug: string, updatedGuests: IGuest[]) {
     };
   }
 }
+
+export async function markInvitationAsOpened(slug: string) {
+  try {
+    await connectToDatabase();
+
+    // Atualiza apenas se openedAt ainda for null (para guardar o 1º acesso)
+    await Invitation.findOneAndUpdate(
+      { slug, openedAt: null },
+      { $set: { openedAt: new Date() } },
+    );
+  } catch (error) {
+    console.error("Erro ao registrar visualização do convite:", error);
+  }
+}

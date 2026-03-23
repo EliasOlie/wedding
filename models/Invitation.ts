@@ -14,6 +14,7 @@ export interface IInvitation extends Document {
   slug: string; // A URL, ex: "familia-almeida"
   saudacao: string; // Ex: "Senhor Roberto Almeida e Família"
   convidados: IGuest[];
+  openedAt: Date;
 }
 
 // O Schema Mongoose
@@ -31,6 +32,7 @@ const InvitationSchema = new Schema<IInvitation>({
   slug: { type: String, required: true, unique: true },
   saudacao: { type: String, required: true },
   convidados: [GuestSchema],
+  openedAt: { type: Date, default: null },
 });
 
 // Impede que o Next.js recompile e duplique o modelo

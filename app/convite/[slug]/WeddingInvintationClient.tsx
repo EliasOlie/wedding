@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/static-components */
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   motion,
   AnimatePresence,
@@ -16,12 +17,17 @@ import {
   CheckCircle2,
   XCircle,
   ArrowDown,
+  Volume2, // Ícone de música tocando
+  VolumeX, // Ícone de música mutada
+  Gift, // <-- NOVO
+  Heart, // <-- NOVO
 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 // --- IMPORT DA SERVER ACTION ---
 import { submitRSVP } from "@/app/actions/rsvp.action";
+import Link from "next/link";
 
 // --- TIPAGEM ---
 type AttendanceStatus = "pending" | "confirmed" | "declined";
@@ -112,43 +118,6 @@ const Countdown = () => {
   );
 };
 
-// --- COMPONENTE SPLASH ---
-const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
-  useEffect(() => {
-    const timer = setTimeout(onComplete, 3000);
-    return () => clearTimeout(timer);
-  }, [onComplete]);
-
-  return (
-    <motion.div
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background"
-      initial={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { duration: 1, ease: "easeInOut" } }}
-    >
-      <div className="relative overflow-hidden p-10 flex items-center justify-center">
-        <motion.h1
-          initial={{ y: "100%" }}
-          animate={{ y: 0 }}
-          transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
-          className="text-8xl md:text-9xl font-serif text-foreground/80 flex items-baseline"
-        >
-          <span>E</span>
-          <span className="font-baskerville text-primary mx-4 md:mx-6 font-normal">
-            &
-          </span>
-          <span>J</span>
-        </motion.h1>
-      </div>
-      <motion.div
-        initial={{ width: 0 }}
-        animate={{ width: "200px" }}
-        transition={{ delay: 0.8, duration: 1.5, ease: "easeInOut" }}
-        className="h-[1px] bg-primary/50 mt-4"
-      />
-    </motion.div>
-  );
-};
-
 // --- COMPONENTE PRINCIPAL (CLIENT) ---
 export default function WeddingInvitationClient({
   initialData,
@@ -166,6 +135,72 @@ export default function WeddingInvitationClient({
   const { scrollY } = useScroll();
   const yHero = useTransform(scrollY, [0, 1000], [0, 400]);
   const opacityHero = useTransform(scrollY, [0, 500], [1, 0]);
+
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const [volume, setVolume] = useState(0.4);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newVolume = parseFloat(e.target.value);
+    setVolume(newVolume);
+    if (audioRef.current) {
+      audioRef.current.volume = newVolume;
+    }
+  };
+
+  useEffect(() => {
+    audioRef.current = new Audio("/musica.mp3"); // Busca o arquivo na pasta public
+    audioRef.current.loop = true; // Deixa em loop infinito
+    audioRef.current.volume = 0.4; // Volume agradável, não muito alto
+
+    return () => {
+      // Limpa a memória quando o usuário sai da página
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
+
+  const toggleMusic = () => {
+    if (!audioRef.current) return;
+
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      audioRef.current
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch(() => {
+          console.log(
+            "Navegador bloqueou o áudio. O usuário precisa clicar no botão.",
+          );
+        });
+    }
+  };
+
+  const [isOpened, setIsOpened] = useState(false);
+
+  const handleOpenInvitation = () => {
+    setIsOpened(true); // Tira a capa da frente
+    setLoading(false);
+
+    if (audioRef.current) {
+      audioRef.current
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch((err) => {
+          console.error("Autoplay bloqueado pelo navegador", err);
+        });
+    }
+  };
 
   const allResponded = guests.every((g) => g.status !== "pending");
 
@@ -195,14 +230,114 @@ export default function WeddingInvitationClient({
     }
   };
 
+  // --- VERIFICAÇÃO DE ESTADO ---
+  // Verifica se o usuário alterou alguma resposta em relação ao banco de dados original
+  const hasChanges =
+    JSON.stringify(guests) !== JSON.stringify(initialData.convidados);
+
+  // Verifica se todos já tinham respondido previamente no banco
+  const allInitiallyResponded = initialData.convidados.every(
+    (g: any) => g.status !== "pending",
+  );
+
   return (
     <>
       <AnimatePresence mode="wait">
-        {loading && <SplashScreen onComplete={() => setLoading(false)} />}
+        {!isOpened && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, y: -50, filter: "blur(10px)" }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background px-6"
+          >
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-primary font-sans text-xs tracking-[0.3em] uppercase mb-6"
+            >
+              23 . 05 . 2026
+            </motion.p>
+
+            <motion.h1
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.4 }}
+              className="text-4xl md:text-6xl font-serif text-foreground text-center mb-12"
+            >
+              Elias & Janine
+            </motion.h1>
+
+            <motion.button
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleOpenInvitation}
+              className="px-10 py-4 bg-primary text-white rounded-full font-sans text-xs uppercase tracking-widest hover:bg-foreground hover:shadow-2xl transition-all duration-300"
+            >
+              Abrir Convite
+            </motion.button>
+          </motion.div>
+        )}
       </AnimatePresence>
 
       {!loading && (
         <main className="min-h-[100dvh] w-full bg-background selection:bg-primary/20 selection:text-foreground overflow-x-hidden">
+          {/* BOTÃO FLUTUANTE DE MÚSICA COM VOLUME SLIDER */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1, duration: 0.8 }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="fixed bottom-6 right-6 z-50 flex items-center bg-background/80 backdrop-blur-md border border-primary/30 rounded-full shadow-lg transition-all duration-300 overflow-hidden hover:bg-background/95 hover:border-primary/50"
+          >
+            {/* O Slider que desliza para a esquerda */}
+            <AnimatePresence>
+              {isHovered && (
+                <motion.div
+                  initial={{ width: 0, opacity: 0 }}
+                  animate={{ width: "90px", opacity: 1 }}
+                  exit={{ width: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="flex items-center pl-4"
+                >
+                  <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value={volume}
+                    onChange={handleVolumeChange}
+                    // O 'accent-primary' pinta a bolinha e a barra na cor do seu tema!
+                    className="w-16 h-1 bg-primary/20 rounded-lg appearance-none cursor-pointer accent-primary"
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* O Botão de Play/Pause original */}
+            <button
+              onClick={toggleMusic}
+              className="w-12 h-12 flex-shrink-0 flex items-center justify-center text-primary rounded-full hover:bg-primary hover:text-white transition-colors duration-300 relative"
+            >
+              {isPlaying ? (
+                <Volume2 className="w-5 h-5" />
+              ) : (
+                <VolumeX className="w-5 h-5" />
+              )}
+
+              {/* O "Pulso" agora some inteligentemente se a pessoa estiver com o mouse em cima */}
+              {!isPlaying && !isHovered && (
+                <span className="absolute flex h-full w-full">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary/40 opacity-75"></span>
+                </span>
+              )}
+            </button>
+          </motion.div>
+
           <section className="relative h-[100dvh] w-full overflow-hidden flex flex-col items-center justify-center">
             {/* Imagem de Fundo Tratada */}
             <motion.div style={{ y: yHero }} className="absolute inset-0 z-0">
@@ -352,6 +487,46 @@ export default function WeddingInvitationClient({
               </p>
             </div>
 
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.8 }}
+              className="w-full max-w-2xl mx-auto px-6 mb-16 flex flex-col sm:flex-row gap-4 md:gap-6"
+            >
+              {/* CTA: Lista de Presentes */}
+              <Link href="/presentes" className="flex-1 group">
+                <div className="h-full flex flex-col items-center justify-center p-8 rounded-3xl bg-background border border-border/50 hover:border-primary/40 hover:bg-foreground/[0.02] transition-all duration-500 hover:-translate-y-1 shadow-sm hover:shadow-md">
+                  <Gift
+                    className="w-8 h-8 text-primary mb-4 transition-transform duration-500 group-hover:scale-110"
+                    strokeWidth={1.5}
+                  />
+                  <h3 className="font-serif text-lg text-foreground mb-2 text-center">
+                    Lista de Presentes
+                  </h3>
+                  <p className="font-sans text-[10px] text-foreground/50 uppercase tracking-widest text-center">
+                    Ajudar no novo lar
+                  </p>
+                </div>
+              </Link>
+
+              {/* CTA: Home / História */}
+              <Link href="/" className="flex-1 group">
+                <div className="h-full flex flex-col items-center justify-center p-8 rounded-3xl bg-background border border-border/50 hover:border-primary/40 hover:bg-foreground/[0.02] transition-all duration-500 hover:-translate-y-1 shadow-sm hover:shadow-md">
+                  <Heart
+                    className="w-8 h-8 text-primary mb-4 transition-transform duration-500 group-hover:scale-110"
+                    strokeWidth={1.5}
+                  />
+                  <h3 className="font-serif text-lg text-foreground mb-2 text-center">
+                    Nossa História
+                  </h3>
+                  <p className="font-sans text-[10px] text-foreground/50 uppercase tracking-widest text-center">
+                    Ver site completo
+                  </p>
+                </div>
+              </Link>
+            </motion.div>
+
             {!isSuccess ? (
               <div className="space-y-4">
                 {guests.map((guest) => (
@@ -395,17 +570,26 @@ export default function WeddingInvitationClient({
 
                 <div className="pt-8 text-center">
                   <button
-                    disabled={!allResponded || isSubmitting}
+                    // Desabilita se não tiver todo mundo respondido, se estiver enviando, OU se não houver nenhuma mudança nova para salvar
+                    disabled={!allResponded || isSubmitting || !hasChanges}
                     onClick={handleSubmitRSVP}
                     className={`inline-flex items-center justify-center px-10 py-4 rounded-full font-sans font-bold text-[11px] uppercase tracking-[0.2em] transition-all duration-500 w-full md:w-auto ${
-                      !allResponded
-                        ? "bg-muted text-foreground/40 cursor-not-allowed border border-transparent"
+                      !allResponded || !hasChanges
+                        ? "bg-foreground/5 text-foreground/40 cursor-not-allowed border border-transparent"
                         : isSubmitting
                           ? "bg-primary/70 text-white cursor-wait"
                           : "bg-primary text-white hover:bg-foreground hover:shadow-xl hover:-translate-y-0.5"
                     }`}
                   >
-                    {isSubmitting ? "Enviando..." : "Confirmar Presença"}
+                    {
+                      isSubmitting
+                        ? "Enviando..."
+                        : !hasChanges && allInitiallyResponded
+                          ? "Presença Registrada" // Já estava tudo certo no banco e ele não mexeu
+                          : hasChanges && allInitiallyResponded
+                            ? "Atualizar Presença" // Ele mudou alguma resposta que já existia
+                            : "Confirmar Presença" // Primeira vez respondendo
+                    }
                   </button>
                 </div>
               </div>
