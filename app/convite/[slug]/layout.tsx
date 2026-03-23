@@ -22,7 +22,7 @@ export async function generateMetadata(
   }
 
   const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://seusitedecasamento.com.br";
+    process.env.NEXT_PUBLIC_SITE_URL || "https://wedding.eliasolie.com.br/";
   const saudacao = invitationData.saudacao;
   const dynamicOgUrl = `${siteUrl}/convite/${params.slug}/og.png`;
 

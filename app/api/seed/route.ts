@@ -59,7 +59,7 @@ export async function GET() {
         ],
       },
       {
-        slug: "mateus-e-familia",
+        slug: "marcos-e-familia",
         saudacao: "Senhor Marcos e Família",
         convidados: [
           { _id: "guest-15", name: "Mateus", status: "pending" },
