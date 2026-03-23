@@ -56,14 +56,16 @@ export async function submitRSVP(slug: string, updatedGuests: IGuest[]) {
     };
   }
 }
-
 export async function markInvitationAsOpened(slug: string) {
   try {
     await connectToDatabase();
 
-    // Atualiza apenas se openedAt ainda for null (para guardar o 1º acesso)
+    // Procura convites onde openedAt é null OU o campo nem existe ainda
     await Invitation.findOneAndUpdate(
-      { slug, openedAt: null },
+      {
+        slug,
+        $or: [{ openedAt: null }, { openedAt: { $exists: false } }],
+      },
       { $set: { openedAt: new Date() } },
     );
   } catch (error) {
