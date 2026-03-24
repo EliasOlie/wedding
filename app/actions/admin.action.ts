@@ -42,19 +42,38 @@ export async function getAdminData() {
     .lean();
 
   const enrichedReservations = reservations.map((res: any) => {
+    // Tenta ver se é um presente manual disfarçado na message
+    let isManual = false;
+    let manualTitle = "";
+    let manualAmount = 0;
+    let cleanMessage = res.message || "";
+
+    try {
+      if (cleanMessage.includes('"isManual":true')) {
+        const payload = JSON.parse(cleanMessage);
+        isManual = true;
+        manualTitle = payload.title;
+        manualAmount = payload.amount;
+        cleanMessage = ""; // Apaga a mensagem pro dashboard não tentar exibir o JSON
+      }
+    } catch (e) {}
+
     const giftDetails = gifts.find((g) => g.id === res.giftId);
+
     return {
       _id: res._id.toString(),
       giftId: res.giftId,
       guestName: res.guestName,
-      message: res.message || "",
+      message: cleanMessage,
       createdAt: res.createdAt,
-      giftName: giftDetails?.name || "Presente Indisponível",
-      giftPrice: giftDetails?.price || 0,
+      giftName: isManual
+        ? manualTitle
+        : giftDetails?.name || "Presente Excluído do Catálogo",
+      giftPrice: isManual ? manualAmount : giftDetails?.price || 0,
+      isManual: isManual,
     };
   });
 
-  // O JSON.parse/stringify limpa os objetos complexos do Mongoose para o Next.js não reclamar
   return {
     invitations: JSON.parse(JSON.stringify(invitations)),
     reservations: JSON.parse(JSON.stringify(enrichedReservations)),

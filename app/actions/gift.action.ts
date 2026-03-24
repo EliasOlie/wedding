@@ -39,3 +39,35 @@ export async function reserveGift(
     };
   }
 }
+
+export async function addManualGift(
+  guestName: string,
+  amount: number,
+  description: string,
+) {
+  try {
+    await connectToDatabase();
+
+    // Gera um ID aleatório bem alto para não dar conflito com a lista fixa do site (que vai até ~100)
+    const randomGiftId = Math.floor(Math.random() * 100000) + 5000;
+
+    // Vamos usar o campo 'message' do banco para guardar o título customizado ("Pix do Tio João") + o valor
+    // Como a nossa tabela original não tem um campo 'customAmount', usamos a message como um payload JSON simples.
+    const customPayload = JSON.stringify({
+      isManual: true,
+      title: description,
+      amount: amount,
+    });
+
+    await GiftReservation.create({
+      giftId: randomGiftId,
+      guestName: guestName,
+      message: customPayload,
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error("Erro ao adicionar presente manual:", error);
+    return { success: false, error: "Erro ao registrar o valor." };
+  }
+}

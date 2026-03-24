@@ -22,7 +22,7 @@ import { getReservedGiftIds, reserveGift } from "@/app/actions/gift.action";
 // CONFIGURAÇÕES DO PIX (Mude para os dados de vocês)
 // ============================================================================
 const PIX_KEY = "56674829-8e47-4ab6-88d0-95ca4ae91fc5"; // Pode ser CPF, Email, Telefone ou Aleatória
-const PIX_NAME = "JANINE ESTRELA"; // Sem acentos, máximo 25 caracteres
+const PIX_NAME = "JANINE ESTRELA3"; // Sem acentos, máximo 25 caracteres
 const PIX_CITY = "PARELHAS"; // Sem acentos, máximo 15 caracteres
 
 // ============================================================================
@@ -225,6 +225,14 @@ export default function RegistryPage() {
             Sua presença é o nosso maior presente. Mas, caso queira nos abençoar
             com algo a mais, preparamos esta lista para nos ajudar a montar o
             nosso novo lar.
+          </motion.p>
+          <motion.p
+            variants={fadeInUp}
+            className="font-sans text-xs text-foreground/70 max-w-2xl mx-auto leading-relaxed font-bold"
+          >
+            * As imagens dos presentes são meramente ilustrativas e os valores
+            serão usados tanto para o enxoval, quanto para a celebração do
+            casamento, quanto para a lua de mel!
           </motion.p>
         </motion.div>
       </section>

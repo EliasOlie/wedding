@@ -21,6 +21,8 @@ import {
   VolumeX, // Ícone de música mutada
   Gift, // <-- NOVO
   Heart, // <-- NOVO
+  Clock,
+  Utensils,
 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -440,29 +442,67 @@ export default function WeddingInvitationClient({
             variants={fadeInUp}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-8 mb-32 w-full px-4"
           >
-            <div className="flex flex-col items-center gap-2">
-              <Calendar
-                className="w-5 h-5 text-primary mb-1"
-                strokeWidth={1.5}
-              />
-              <span className="font-sans text-xs uppercase tracking-[0.2em] text-foreground/60">
-                Data
-              </span>
-              <span className="font-serif text-xl text-foreground">
-                23.05.2026
-              </span>
-            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-12 gap-x-8 w-full mt-4">
+              {/* DATA */}
+              <div className="flex flex-col items-center gap-2">
+                <Calendar
+                  className="w-5 h-5 text-primary mb-1"
+                  strokeWidth={1.5}
+                />
+                <span className="font-sans text-xs uppercase tracking-[0.2em] text-foreground/60">
+                  Data
+                </span>
+                <span className="font-serif text-xl text-foreground text-center">
+                  23.05.2026
+                </span>
+              </div>
 
-            <div className="hidden sm:block h-12 w-px bg-border" />
+              {/* HORÁRIO */}
+              <div className="flex flex-col items-center gap-2">
+                <Clock
+                  className="w-5 h-5 text-primary mb-1"
+                  strokeWidth={1.5}
+                />
+                <span className="font-sans text-xs uppercase tracking-[0.2em] text-foreground/60">
+                  Horário
+                </span>
+                <span className="font-serif text-xl text-foreground text-center">
+                  10:00h
+                </span>
+              </div>
 
-            <div className="flex flex-col items-center gap-2 mt-6 sm:mt-0">
-              <MapPin className="w-5 h-5 text-primary mb-1" strokeWidth={1.5} />
-              <span className="font-sans text-xs uppercase tracking-[0.2em] text-foreground/60">
-                Local
-              </span>
-              <span className="font-serif text-xl text-foreground">
-                Parelhas, RN
-              </span>
+              {/* CERIMÔNIA */}
+              <div className="flex flex-col items-center gap-2">
+                <MapPin
+                  className="w-5 h-5 text-primary mb-1"
+                  strokeWidth={1.5}
+                />
+                <span className="font-sans text-xs uppercase tracking-[0.2em] text-foreground/60">
+                  Cerimônia
+                </span>
+                <span className="font-serif text-xl text-foreground text-center">
+                  Igreja Presbiteriana
+                </span>
+              </div>
+
+              {/* COMEMORAÇÃO */}
+              <div className="flex flex-col items-center gap-2">
+                <Utensils
+                  className="w-5 h-5 text-primary mb-1"
+                  strokeWidth={1.5}
+                />
+                <span className="font-sans text-xs uppercase tracking-[0.2em] text-foreground/60">
+                  Comemoração
+                </span>
+                {/* Aqui ajustei levemente o tamanho da fonte e quebrei a linha para o texto grande não estourar a tela */}
+                <span className="font-serif text-lg leading-snug text-foreground text-center max-w-[280px]">
+                  Restaurante VMV, Central Shopping
+                  <br />
+                  <span className="text-sm text-foreground/80">
+                    Piso 02, Centro
+                  </span>
+                </span>
+              </div>
             </div>
           </motion.div>
 

@@ -12,8 +12,10 @@ import {
   XCircle,
   Clock,
   Eye,
+  Plus,
   MessageSquare,
 } from "lucide-react";
+import { addManualGift } from "@/app/actions/gift.action"; // <-- Importe a action
 
 export default function AdminDashboardClient({
   initialData,
@@ -23,10 +25,30 @@ export default function AdminDashboardClient({
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<"guests" | "gifts">("guests");
   const [guestFilter, setGuestFilter] = useState("all");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [manualName, setManualName] = useState("");
+  const [manualAmount, setManualAmount] = useState("");
+  const [manualDesc, setManualDesc] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleLogout = async () => {
     await logoutAdmin();
     router.refresh();
+  };
+
+  const handleAddManual = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    const amountFloat = parseFloat(manualAmount.replace(",", "."));
+
+    await addManualGift(manualName, amountFloat, manualDesc);
+
+    setIsModalOpen(false);
+    setManualName("");
+    setManualAmount("");
+    setManualDesc("");
+    setIsSubmitting(false);
+    router.refresh(); // Recarrega os dados mágicamente
   };
 
   // --- ESTATÍSTICAS E CÁLCULOS ---
@@ -237,11 +259,24 @@ export default function AdminDashboardClient({
         {/* --- ABA PRESENTES --- */}
         {activeTab === "gifts" && (
           <div className="animate-in fade-in duration-500">
+            {/* CABEÇALHO DA ABA PRESENTES */}
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="font-serif text-xl text-foreground">
+                Registro de Presentes
+              </h2>
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-full text-xs font-bold uppercase tracking-widest hover:bg-emerald-700 transition-colors shadow-sm"
+              >
+                <Plus className="w-4 h-4" /> Lançar Pix / Dinheiro
+              </button>
+            </div>
+
             {initialData.reservations.length === 0 ? (
               <div className="text-center py-20">
                 <Gift className="w-12 h-12 text-border mx-auto mb-4" />
                 <p className="text-foreground/50 font-serif text-xl">
-                  Ainda não há presentes reservados.
+                  Ainda não há presentes registrados.
                 </p>
               </div>
             ) : (
@@ -249,20 +284,30 @@ export default function AdminDashboardClient({
                 {initialData.reservations.map((res: any) => (
                   <div
                     key={res._id}
-                    className="bg-white p-6 rounded-3xl shadow-sm border border-border/40 relative overflow-hidden"
+                    className={`p-6 rounded-3xl shadow-sm border relative overflow-hidden ${res.isManual ? "bg-emerald-50/50 border-emerald-100" : "bg-white border-border/40"}`}
                   >
-                    <div className="absolute top-0 right-0 bg-primary/10 text-primary px-4 py-1 rounded-bl-2xl text-[10px] font-bold uppercase tracking-widest">
-                      {new Date(res.createdAt).toLocaleDateString()}
+                    <div
+                      className={`absolute top-0 right-0 px-4 py-1 rounded-bl-2xl text-[10px] font-bold uppercase tracking-widest ${res.isManual ? "bg-emerald-100 text-emerald-700" : "bg-primary/10 text-primary"}`}
+                    >
+                      {res.isManual
+                        ? "Lançamento Manual"
+                        : new Date(res.createdAt).toLocaleDateString()}
                     </div>
 
                     <h3 className="font-serif text-xl text-foreground mb-1">
                       {res.guestName}
                     </h3>
-                    <p className="text-sm text-foreground/60 mb-4">
-                      Presenteou com:{" "}
+                    <p className="text-sm text-foreground/60 mb-2">
+                      {res.isManual ? "Contribuição de:" : "Presenteou com:"}{" "}
                       <strong className="text-foreground">
                         {res.giftName}
                       </strong>
+                    </p>
+                    <p className="text-lg font-bold text-emerald-600 mb-4">
+                      {new Intl.NumberFormat("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                      }).format(res.giftPrice)}
                     </p>
 
                     {res.message && (
@@ -277,6 +322,73 @@ export default function AdminDashboardClient({
                 ))}
               </div>
             )}
+          </div>
+        )}
+        {isModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm">
+            <div className="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl border border-border/50">
+              <h3 className="font-serif text-2xl mb-6">Lançar Valor</h3>
+              <form onSubmit={handleAddManual} className="flex flex-col gap-4">
+                <div>
+                  <label className="text-xs font-bold uppercase tracking-widest text-foreground/50 ml-1 mb-1 block">
+                    Quem deu?
+                  </label>
+                  <input
+                    required
+                    type="text"
+                    value={manualName}
+                    onChange={(e) => setManualName(e.target.value)}
+                    placeholder="Ex: Tio Paulo e Tia Maria"
+                    className="w-full px-4 py-3 bg-background rounded-xl border border-border/50 outline-none focus:border-emerald-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-bold uppercase tracking-widest text-foreground/50 ml-1 mb-1 block">
+                    Qual o valor (R$)?
+                  </label>
+                  <input
+                    required
+                    type="number"
+                    step="0.01"
+                    min="1"
+                    value={manualAmount}
+                    onChange={(e) => setManualAmount(e.target.value)}
+                    placeholder="Ex: 500.00"
+                    className="w-full px-4 py-3 bg-background rounded-xl border border-border/50 outline-none focus:border-emerald-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-bold uppercase tracking-widest text-foreground/50 ml-1 mb-1 block">
+                    Descrição do valor
+                  </label>
+                  <input
+                    required
+                    type="text"
+                    value={manualDesc}
+                    onChange={(e) => setManualDesc(e.target.value)}
+                    placeholder="Ex: Pix direto na conta"
+                    className="w-full px-4 py-3 bg-background rounded-xl border border-border/50 outline-none focus:border-emerald-500"
+                  />
+                </div>
+
+                <div className="flex gap-2 mt-4">
+                  <button
+                    type="button"
+                    onClick={() => setIsModalOpen(false)}
+                    className="flex-1 py-3 font-bold text-xs uppercase tracking-widest text-foreground/60 hover:text-foreground"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="flex-1 py-3 bg-emerald-600 text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-emerald-700"
+                  >
+                    {isSubmitting ? "Salvando..." : "Registrar"}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         )}
       </main>
