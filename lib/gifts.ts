@@ -332,4 +332,11 @@ export const gifts: Gift[] = [
     image:
       "https://media.istockphoto.com/id/972656164/pt/vetorial/wip-sign-icon.jpg?s=612x612&w=0&k=20&c=ua9bBYSy32XeP3QxU_2Yj5b2C1VcJD9RQJ1Z9q3N92Y=",
   },
+  {
+    id: 46,
+    name: "Conjunto de Canecas Personalizadas Casal",
+    price: 105,
+    image:
+      "https://acdn-us.mitiendanube.com/stores/914/032/products/1-kit-2-canecas-marido-e-esposa1-bd24939c29fdd6118a16215292028801-1024-1024.webp",
+  },
 ];
