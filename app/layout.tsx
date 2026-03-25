@@ -6,6 +6,7 @@ import {
   Libre_Baskerville,
 } from "next/font/google";
 import "./globals.css";
+import SmoothScroll from "@/components/smooth-scroll";
 
 // A fonte do espetáculo (para os nomes e o texto desfocado)
 const playfair = Playfair_Display({
@@ -47,7 +48,9 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${playfair.variable} ${montserrat.variable} ${pinyon.variable}`}
     >
-      <body className="antialiased font-sans">{children}</body>
+      <body className="antialiased font-sans">
+        <SmoothScroll>{children}</SmoothScroll>{" "}
+      </body>
     </html>
   );
 }
