@@ -505,6 +505,66 @@ export default function WeddingInvitationClient({
               </div>
             </div>
           </motion.div>
+          <section className="py-32 bg-secondary/30 relative">
+            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+
+            <div className="max-w-4xl mx-auto px-4 text-center">
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={staggerContainer}
+              >
+                <motion.div variants={fadeInUp}>
+                  <Gift
+                    strokeWidth={1}
+                    className="w-12 h-12 text-primary mx-auto mb-6"
+                  />
+                </motion.div>
+
+                <motion.h2
+                  variants={fadeInUp}
+                  className="text-4xl md:text-5xl font-serif mb-6 text-foreground"
+                >
+                  Lista de Presentes
+                </motion.h2>
+
+                <motion.p
+                  variants={fadeInUp}
+                  className="text-lg text-foreground/70 mb-16 max-w-xl mx-auto font-light"
+                >
+                  Optamos por listas virtuais para facilitar. Seu carinho em
+                  forma de presente nos ajudará a construir nosso lar e viver
+                  nossa lua de mel.
+                </motion.p>
+
+                <div className="flex flex-1">
+                  <motion.a
+                    href="/presentes"
+                    variants={fadeInUp}
+                    whileHover={{ y: -8 }}
+                    className="group relative bg-background p-10 flex flex-1 rounded-2xl shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] transition-all duration-500 border border-transparent hover:border-primary/40"
+                  >
+                    {/* Efeito hover de fundo */}
+
+                    <div className="relative z-10 flex flex-1 flex-col">
+                      <h3 className="text-3xl font-serif mb-3 text-foreground group-hover:text-primary-dark transition-colors">
+                        Presentes!
+                      </h3>
+                      {/* Texto de descrição mais escuro para melhor contraste */}
+                      <p className="text-foreground/70 mb-8 font-medium">
+                        Vamos construir o nosso sonho juntos!
+                      </p>
+                      {/* Botão com contraste aprimorado */}
+                      <span className="inline-block px-8 py-3 bg-secondary text-foreground font-bold text-xs uppercase tracking-widest rounded-full group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                        VER LISTA
+                      </span>
+                    </div>
+                  </motion.a>
+                </div>
+              </motion.div>
+            </div>
+          </section>
         </main>
       )}
     </>
